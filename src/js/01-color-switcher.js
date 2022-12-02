@@ -20,6 +20,6 @@ function onStartBtnClick() {
 
 function onStopBtnClick() {
   clearInterval(changeColorInterval);
-  document.body.style.backgroundColor = '#FFFFFF';
+  //   document.body.style.backgroundColor = '#FFFFFF';
   startBtn.disabled = false;
 }
