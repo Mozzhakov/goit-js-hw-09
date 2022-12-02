@@ -57,23 +57,19 @@ function convertMs(ms) {
   const day = hour * 24;
 
   const days = Math.floor(ms / day);
-  const hours = addLeadingZero(Math.floor((ms % day) / hour));
-  const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
+  const hours = Math.floor((ms % day) / hour);
+  const minutes = Math.floor(((ms % day) % hour) / minute);
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
-  return {
-    days: days === 0 ? '00' : days < 10 ? addLeadingZero(days) : days,
-    hours,
-    minutes,
-    seconds,
-  };
+  return { days, hours, minutes, seconds };
 }
 
 function renderTime({ days, hours, minutes, seconds }) {
-  daysEl.innerHTML = days;
-  hoursEl.innerHTML = hours;
-  minutesEl.innerHTML = minutes;
-  secondsEl.innerHTML = seconds;
+  daysEl.innerHTML =
+    days === 0 ? '00' : days < 10 ? addLeadingZero(days) : days;
+  hoursEl.innerHTML = addLeadingZero(hours);
+  minutesEl.innerHTML = addLeadingZero(minutes);
+  secondsEl.innerHTML = addLeadingZero(seconds);
 }
 
 function resetTimer() {

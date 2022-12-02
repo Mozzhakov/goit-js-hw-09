@@ -1,7 +1,6 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const form = document.querySelector('.form');
-form.addEventListener('submit', onFormSubmit);
 
 function createPromise(position, delay) {
   const promise = new Promise((resolve, reject) => {
@@ -21,6 +20,8 @@ function createPromise(position, delay) {
     });
 }
 
+form.addEventListener('submit', onFormSubmit);
+
 function onFormSubmit(e) {
   e.preventDefault();
   const formElements = e.currentTarget.elements;
@@ -30,14 +31,16 @@ function onFormSubmit(e) {
   const amount = numberedValue(formElements.amount.value);
 
   let currentAmount = 0;
-
+  let currentDelay = delay;
   setTimeout(() => {
+    createPromise(currentAmount, currentDelay);
     const interval = setInterval(() => {
       currentAmount += 1;
+      currentDelay += step;
       if (currentAmount === amount) {
         clearInterval(interval);
       }
-      createPromise(currentAmount, step);
+      createPromise(currentAmount, currentDelay);
     }, step);
   }, delay);
 }
